@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home page</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+	
+}
+form {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch;
+}
+</style>
+</head>
+<body>
+	<h2>Product</h2>
+<form th:action="@{/search}">
+  <label for="fname">Product name:</label><br>
+  <input type="text" id="pdname" name="pdname" th:value="${pdname}"><br>
+  <label for="lname">Product type:</label><br>
+  <input type="text" id="pdtype" name="pdtype" th:value="${pdtype}"><br>
+  <input type="submit" value="Search">
+</form> 
+<br>
+	<table>
+		<thead>
+			<tr>
+				<th>Product Name</th>
+				<th>Product Description</th>
+				<th>Product Type</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${listproduct.empty}">
+				<td colspan="2">No Books Available</td>
+			</tr>
+			<tr th:each="product: ${listproduct}">
+				<td><span th:text="${product.productName}"> Product Name </span></td>
+				<td><span th:text="${product.productDescription}"> Product Description </span></td>
+				<td><span th:text="${product.productType}"> Product Type </span></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
