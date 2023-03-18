@@ -19,8 +19,8 @@ td, th {
 
 tr:nth-child(even) {
 	background-color: #dddddd;
-	
 }
+
 form {
 	display: flex;
 	flex-direction: row;
@@ -33,32 +33,69 @@ form {
 </head>
 <body>
 	<h2>Product</h2>
-<form th:action="@{/search}">
-  <label for="fname">Product name:</label><br>
-  <input type="text" id="pdname" name="pdname" th:value="${pdname}"><br>
-  <label for="lname">Product type:</label><br>
-  <input type="text" id="pdtype" name="pdtype" th:value="${pdtype}"><br>
-  <input type="submit" value="Search">
-</form> 
-<br>
-	<table>
-		<thead>
-			<tr>
-				<th>Product Name</th>
-				<th>Product Description</th>
-				<th>Product Type</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:if="${listproduct.empty}">
-				<td colspan="2">No Books Available</td>
-			</tr>
-			<tr th:each="product: ${listproduct}">
-				<td><span th:text="${product.productName}"> Product Name </span></td>
-				<td><span th:text="${product.productDescription}"> Product Description </span></td>
-				<td><span th:text="${product.productType}"> Product Type </span></td>
-			</tr>
-		</tbody>
-	</table>
+	<form th:action="@{/search}">
+		<label for="fname">Product name:</label><br> <input type="text"
+			id="pdname" name="pdname" th:value="${pdname}"><br> <label
+			for="lname">Product type:</label><br> <input type="text"
+			id="pdtype" name="pdtype" th:value="${pdtype}"><br> <input
+			type="submit" value="Search">
+	</form>
+	<br>
+	<h1>
+		<span th:text="${msg}"></span>
+	</h1>
+	<form th:action="@{/order-product}" method="POST">
+		<table>
+			<thead>
+				<tr>
+					<th>Product Name</th>
+					<th>Product Description</th>
+					<th>Product Type</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${listproduct.empty}">
+					<td colspan="2">No Books Available</td>
+				</tr>
+				<tr th:each="product: ${listproduct}">
+					<td><span th:text="${product.productName}"> Product
+							Name </span></td>
+					<td><span th:text="${product.productDescription}">
+							Product Description </span></td>
+					<td><span th:text="${product.productType}"> Product
+							Type </span></td>
+					<td><div class="inputQuantity">
+							<input type="text" id="soluong" name="soluong">
+						</div></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<div>
+			<button type="submit" id="btnCheckEmpty" onclick="numberValidation()">
+				Đặt hàng</button>
+		</div>
+	</form>
+	<script>
+  /* this function is called when we
+        click on the submit button*/
+        document.getElementById('btnCheckEmpty').addEventListener('click', () => {
+            if (isEveryInputEmpty())
+                alert('Vui lòng chọn sản phẩm và nhập số lượng');
+            	location.reload();
+    	});    
+    const isEveryInputEmpty = () => {
+        var inputs = document.querySelectorAll('.inputQuantity input');
+        
+        for (const input of inputs)
+            if (input.value !== '')  return false;
+            	
+        return true;
+    }
+</script>
+<script>
+	
+</script>
 </body>
 </html>
