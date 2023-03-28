@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>KnockoutJS Options Binding</title>
+<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js"
+	type="text/javascript"></script>
+</head>
+
+<body>
+	<select	data-bind="  value: value,  options: options,  optionsText: 'text',  optionsValue: 'value', valueAllowUnset: true ">
+	</select>
+
+	<input style="border: none;
+    background-color: lightgray;" data-bind="value: value" disabled>
+
+	<script type="text/javascript">
+		const List =['1', '2', '3'];
+		const List2 = ['Helo', 'Halo','Bta'];
+		options =[]
+		options.push({
+			text: "",
+			value: ""
+		})
+		for(i = 0 ; i< List.length; i++){
+			options.push({
+				text: List[i],
+				value: List2[i]
+			})
+		}
+		const mainVM = {	
+			
+			value : ko.observable(""),			
+			options: ko.observableArray(options)
+		};
+
+		ko.applyBindings(mainVM);
+	</script>
+
+</body>
+</html>
